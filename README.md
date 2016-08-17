@@ -1,12 +1,11 @@
 # rc-table
 
-react table component
+React table component.
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
-[![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
 
 [npm-image]: http://img.shields.io/npm/v/rc-table.svg?style=flat-square
@@ -17,15 +16,12 @@ react table component
 [coveralls-url]: https://coveralls.io/r/react-component/table?branch=master
 [gemnasium-image]: http://img.shields.io/gemnasium/react-component/table.svg?style=flat-square
 [gemnasium-url]: https://gemnasium.com/react-component/table
-[node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
-[node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/rc-table.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rc-table
 
 ## install
 
 [![rc-table](https://nodei.co/npm/rc-table.png)](https://npmjs.org/package/rc-table)
-
 
 ## Development
 
@@ -36,55 +32,35 @@ npm start
 
 ## Example
 
-http://localhost:8000/examples/
-
-online example: http://react-component.github.io/table/examples/
+http://react-component.github.io/table/examples/
 
 ## Usage
 
 ```js
-var React = require('react');
-var Table = require('rc-table');
-require('rc-table/assets/index.css');
+import Table from 'rc-table';
 
-var columns = [
-  {title: '表头1', dataIndex: 'a', colSpan: 2,key:'a',width: 100},
-  {id: '123', title: '表头2', dataIndex: 'b', colSpan: 0,key:'b', width: 100, render: function(o, row, index){
-      let obj ={
-        children:o,
-        props:{}
-      }
-      if(index === 0){
-        obj.props.rowSpan = 2;
-      }
-      if(index === 1){
-        obj.props.rowSpan = 0;
-      }
-      return obj;
-    }},
-  {title: '表头3', dataIndex: 'c',  key:'c',width: 200},
-  {
-    title: '操作', dataIndex: '',  key:'d',render: function () {
-    return <a href="#">操作</a>
-  }
-  }
+const columns = [{
+  title: '表头1', dataIndex: 'a', key:'a', width: 100,
+}, {
+  title: '表头2', dataIndex: 'b', key:'b', width: 100,
+}, {
+  title: '表头3', dataIndex: 'c', key:'c', width: 200,
+}, {
+  title: '操作', dataIndex: '', key:'d', render: () => <a href="#">操作</a>,
+}];
+
+const data = [
+  { a: '123', b: '123', c: '123', key:'1' },
+  { a: '123', b: '123', c: '123', key:'2' },
+  { a: '123', b: '123', c: '123', key:'3' },
 ];
 
-var data = [{a: '123',key:'1'}, {a: 'cdd', b: 'edd',key:'2'}, {a: '1333', c: 'eee', d: 2,key:'3'}];
-
-var table = React.render(
-  <div>
-    <h2>simple table</h2>
-    <Table columns={columns}
-      data={data}
-      className="table"/>
-  </div>,
-  document.getElementById('__react-content')
-);
+React.render(<Table columns={columns} data={data} />, mountNode);
 ```
+
 ## API
 
-### property
+### Properties
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -107,12 +83,6 @@ var table = React.render(
           <td>String</td>
           <th></th>
           <td>additional className</td>
-      </tr>
-      <tr>
-         <td>colSpan</td>
-         <td>Number</td>
-         <th></th>
-         <td>thead colSpan of this column</td>
       </tr>
       <tr>
           <td>useFixedHeader</td>
@@ -232,10 +202,22 @@ var table = React.render(
           <td>whether table head is shown</td>
       </tr>
       <tr>
+          <td>title</td>
+          <td>Function(currentData)</td>
+          <th></th>
+          <td>table title render function</td>
+      </tr>
+      <tr>
           <td>footer</td>
           <td>Function(currentData)</td>
           <th></th>
           <td>table footer render function</td>
+      </tr>
+      <tr>
+          <td>getBodyWrapper</td>
+          <td>Function(body)</td>
+          <th></th>
+          <td>get wrapper of tbody, [demoe](http://react-component.github.io/table/examples/animation.html)</td>
       </tr>
       <tr>
           <td>columns</td>
@@ -266,6 +248,12 @@ var table = React.render(
                       <td>className of this column</td>
                   </tr>
                   <tr>
+                     <td>colSpan</td>
+                     <td>Number</td>
+                     <th></th>
+                     <td>thead colSpan of this column</td>
+                  </tr>
+                  <tr>
                       <td>title</td>
                       <td>React Node</td>
                       <th></th>
@@ -293,7 +281,7 @@ var table = React.render(
                       <td>render</td>
                       <td>Function(value, row, index)</td>
                       <th></th>
-                      <td>The render function of cell, has three params: the text of this cell, the record of this row, the index of this row, it's return an object:{children: value, props:{colSpan: 1, rowSpan:1}}==>'children' is the text of this cell, props is some setting of this cell, eg: 'colspan' set td colspan, 'rowspan' set td rowspan</td>
+                      <td>The render function of cell, has three params: the text of this cell, the record of this row, the index of this row, it's return an object:{ children: value, props: { colSpan: 1, rowSpan:1 } } ==> 'children' is the text of this cell, props is some setting of this cell, eg: 'colspan' set td colspan, 'rowspan' set td rowspan</td>
                   </tr>
                 </tbody>
             </table>
@@ -301,14 +289,6 @@ var table = React.render(
       </tr>
     </tbody>
 </table>
-
-## Test Case
-
-http://localhost:8000/tests/runner.html?coverage
-
-## Coverage
-
-http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/tests/runner.html?coverage
 
 ## License
 

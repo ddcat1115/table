@@ -3,23 +3,19 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const Table = require('rc-table');
 require('rc-table/assets/index.less');
-const Menu = require('rc-menu');
 require('rc-dropdown/assets/index.css');
 require('rc-menu/assets/index.css');
-const DropDown = require('rc-dropdown');
+import Menu, { Item, Divider } from 'rc-menu';
+import DropDown from 'rc-dropdown';
 
 const data = [];
 for (let i = 0; i < 10; i++) {
   data.push({
     key: i,
-    a: 'a' + i,
-    b: 'b' + i,
-    c: 'c' + i,
+    a: `a${i}`,
+    b: `b${i}`,
+    c: `c${i}`,
   });
-}
-
-function getRowKey(record) {
-  return record.key;
 }
 
 const Test = React.createClass({
@@ -31,9 +27,7 @@ const Test = React.createClass({
   },
 
   handleVisibleChange(visible) {
-    this.setState({
-      visible: visible,
-    });
+    this.setState({ visible });
   },
 
   handleSelect(selected) {
@@ -56,43 +50,55 @@ const Test = React.createClass({
 
   render() {
     const menu = (
-      <Menu style={{width: 200}} multiple onSelect={this.handleSelect} onDeselect={this.handleDeselect}>
-        <Menu.Item key="1">one</Menu.Item>
-        <Menu.Item key="2">two</Menu.Item>
-        <Menu.Item key="3">three</Menu.Item>
-        <Menu.Divider/>
-        <Menu.Item disabled>
+      <Menu
+        style={{ width: 200 }}
+        multiple
+        onSelect={this.handleSelect}
+        onDeselect={this.handleDeselect}
+      >
+        <Item key="1">one</Item>
+        <Item key="2">two</Item>
+        <Item key="3">three</Item>
+        <Divider />
+        <Item disabled>
           <button
             style={{
               cursor: 'pointer',
               color: '#000',
-              'pointerEvents': 'visible',
+              pointerEvents: 'visible',
             }}
-            onClick={this.confirmFilter}>确定</button>
-        </Menu.Item>
+            onClick={this.confirmFilter}
+          >确定</button>
+        </Item>
       </Menu>
     );
 
     const columns = [
       {
-        title: (<div>表头1
-          <DropDown trigger="click"
-            onVisibleChange={this.handleVisibleChange}
-            visible={this.state.visible}
-            closeOnSelect={false}
-            overlay={menu}>
-            <a href="#">filter</a>
-          </DropDown>
-        </div>), key: 'a', dataIndex: 'a', width: 100,
+        title: (
+          <div>
+            表头1
+            <DropDown
+              trigger={['click']}
+              onVisibleChange={this.handleVisibleChange}
+              visible={this.state.visible}
+              overlay={menu}
+            >
+              <a href="#">filter</a>
+            </DropDown>
+          </div>
+        ), key: 'a', dataIndex: 'a', width: 100,
       },
-      {id: '123', title: '表头2', dataIndex: 'b', key: 'b', width: 100},
-      {title: '表头3', key: 'c', dataIndex: 'c', width: 200},
+      { title: '表头2', key: 'b', dataIndex: 'b', width: 100 },
+      { title: '表头3', key: 'c', dataIndex: 'c', width: 200 },
     ];
+
     return (
-      <Table columns={columns}
+      <Table
+        columns={columns}
         data={data}
-        rowKey={getRowKey}
-        className="table"/>
+        rowKey={record => record.key}
+      />
     );
   },
 });
@@ -100,7 +106,7 @@ const Test = React.createClass({
 ReactDOM.render(
   <div>
     <h2>use dropdown</h2>
-    <Test/>
+    <Test />
   </div>,
   document.getElementById('__react-content')
 );

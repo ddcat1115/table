@@ -5,7 +5,7 @@ const Table = require('rc-table');
 require('rc-table/assets/index.less');
 
 const CheckBox = React.createClass({
-  render: function() {
+  render() {
     const props = this.props;
     return (
       <label>
@@ -17,7 +17,7 @@ const CheckBox = React.createClass({
 });
 
 const MyTable = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     const props = this.props;
     return {
       data: props.data,
@@ -35,27 +35,23 @@ const MyTable = React.createClass({
     });
   },
 
-  getRowKey(record) {
-    return record.a;
-  },
-
   toggleButton() {
     if (this.state.expandedRowKeys.length) {
-      const closeAll = () => this.setState({expandedRowKeys: []});
+      const closeAll = () => this.setState({ expandedRowKeys: [] });
       return <button onClick={closeAll}>关闭所有</button>;
     }
-    const openAll = () => this.setState({expandedRowKeys: ['123', 'cdd', '1333']});
+    const openAll = () => this.setState({ expandedRowKeys: [0, 1, 2] });
     return <button onClick={openAll}>展开全部</button>;
   },
 
-  handleClick: function(index) {
+  handleClick(index) {
     const self = this;
-    return function() {
+    return () => {
       self.remove(index);
     };
   },
 
-  remove: function(index) {
+  remove(index) {
     const rows = this.state.data;
     rows.splice(index, 1);
     this.setState({
@@ -63,7 +59,7 @@ const MyTable = React.createClass({
     });
   },
 
-  checkbox: function(a) {
+  checkbox(a) {
     return <CheckBox id={a} />;
   },
 
@@ -72,17 +68,17 @@ const MyTable = React.createClass({
     return <p>extra: {record.a}</p>;
   },
 
-  renderAction: function(o, row, index) {
+  renderAction(o, row, index) {
     return <a href="#" onClick={this.handleClick(index)}>删除</a>;
   },
 
-  render: function() {
+  render() {
     const state = this.state;
     const columns = [
-      {title: '表头1', dataIndex: 'a', key: 'a', width: 100, render: this.checkbox},
-      {title: '表头2', dataIndex: 'b', key: 'b', width: 100},
-      {title: '表头3', dataIndex: 'c', key: 'c', width: 200},
-      {title: '操作', dataIndex: '', key: 'x', render: this.renderAction},
+      { title: '表头1', dataIndex: 'a', key: 'a', width: 100, render: this.checkbox },
+      { title: '表头2', dataIndex: 'b', key: 'b', width: 100 },
+      { title: '表头3', dataIndex: 'c', key: 'c', width: 200 },
+      { title: '操作', dataIndex: '', key: 'x', render: this.renderAction },
     ];
     return (
       <div>
@@ -95,15 +91,17 @@ const MyTable = React.createClass({
           onExpandedRowsChange={this.onExpandedRowsChange}
           onExpand={this.onExpand}
           data={state.data}
-          className="table"
-          rowKey={this.getRowKey}
         />
       </div>
     );
   },
 });
 
-const data = [{a: '123'}, {a: 'cdd', b: 'edd'}, {a: '1333', c: 'eee', d: 2}];
+const data = [
+  { key: 0, a: '123' },
+  { key: 1, a: 'cdd', b: 'edd' },
+  { key: 2, a: '1333', c: 'eee', d: 2 },
+];
 
 ReactDOM.render(
   <div>

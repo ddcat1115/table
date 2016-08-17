@@ -1,6 +1,28 @@
 # History
 ----
 
+## 4.4.7 / 2016-08-17
+
+Fix https://github.com/ant-design/ant-design/issues/2729
+
+## 4.4.6 / 2016-08-05
+
+Fix https://github.com/ant-design/ant-design/issues/2625
+
+## 4.4.2 / 2016-08-01
+
+- Improve row and cell render perfermance.
+
+## 4.4.1 / 2016-07-24
+
+-  Fix row expand of key 0 record. (ant-design/ant-design#2471)
+
+## 4.4.0 / 2016-07-19
+
+- Add `title` prop [demo](http://react-component.github.io/table/examples/title-and-footer.html)
+- Add `getBodyWrapper` prop [demo](http://react-component.github.io/table/examples/animation.html)
+- Use `maxHeight` for fixed-header Table [#65](https://github.com/react-component/table/issues/65)
+
 ## 4.3.0 / 2016-06-20
 
 - support `rowKey="uid"`

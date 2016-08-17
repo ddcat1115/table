@@ -1,10 +1,13 @@
 {
   "name": "rc-table",
-  "version": "4.3.9",
+  "version": "4.4.7",
   "description": "table ui component for react",
   "keywords": [
     "react",
-    "react-table"
+    "react-table",
+    "table",
+    "component",
+    "ui"
   ],
   "files": [
     "lib",
@@ -14,7 +17,7 @@
   "homepage": "http://github.com/react-component/table",
   "maintainers": [
     "yiminghe@gmail.com",
-    "dxq613@gmail.com"
+    "afc163@gmail.com"
   ],
   "repository": {
     "type": "git",
@@ -30,16 +33,18 @@
   "scripts": {
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
-    "start": "rc-server",
+    "start": "rc-tools run server",
     "pub": "rc-tools run pub",
     "lint": "rc-tools run lint",
+    "lint:fix": "rc-tools run lint --fix",
     "karma": "rc-tools run karma",
     "saucelabs": "rc-tools run saucelabs",
-    "browser-test": "rc-tools run browser-test",
-    "browser-test-cover": "rc-tools run browser-test-cover"
+    "test": "rc-tools run test",
+    "chrome-test": "rc-tools run chrome-test",
+    "coverage": "rc-tools run coverage"
   },
   "dependencies": {
-    "object-path": "^0.9.2",
+    "object-path": "^0.11.1",
     "rc-util": "3.x",
     "shallowequal": "^0.2.2"
   },
@@ -47,13 +52,13 @@
     "expect.js": "~0.3.1",
     "jquery": "^1.11.2",
     "pre-commit": "1.x",
-    "rc-dropdown": "~1.1.2",
-    "rc-menu": "~3.4.0",
-    "rc-server": "3.x",
-    "rc-tools": "4.x",
-    "react": "~0.14.0",
-    "react-addons-test-utils": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "rc-dropdown": "~1.4.10",
+    "rc-menu": "~4.13.0",
+    "rc-tools": "5.x",
+    "react": "^15.2.1",
+    "react-addons-test-utils": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "rc-animate": "^2.3.0"
   },
   "pre-commit": [
     "lint"
